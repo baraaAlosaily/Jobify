@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import { FormRow,Logo,Alert } from "../components";
 import { useAppContext } from "../context/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 const initailState = {
@@ -14,8 +15,9 @@ const initailState = {
 const Register = () => {
   const [values, setValues] = useState(initailState);
   // global state and usenavigation
+  const navigate=useNavigate();
 
-  const {isLoading,showAlert,displayAlert}= useAppContext();
+  const {user,isLoading,showAlert,displayAlert,setupUser}= useAppContext();
 
   const toggeleMember=()=>{
       setValues({...values,isMember:!values.isMember})
@@ -32,8 +34,35 @@ const Register = () => {
       displayAlert();
       return
     }
-    console.log(values)
+    const currentUser={name,password,email}
+
+    let setUpUserObj;
+
+    if(isMember){
+      setUpUserObj={
+        currentUser:currentUser,
+        endPoint:"login",
+        alertText:'Login Successfully! Redirecting...'
+      }
+      setupUser(setUpUserObj);
+    }else{
+      setUpUserObj={
+        currentUser:currentUser,
+        endPoint:"register",
+        alertText:'User Create! Redirecting...'
+      }
+      setupUser(setUpUserObj)
+    }
   };
+
+  useEffect(() => {
+    if(user){
+      setTimeout(() => {
+        navigate('/')
+      }, 3000);
+    }
+  }, [user,navigate])
+  
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
@@ -61,7 +90,8 @@ const Register = () => {
         value={values.password}
         handleChange={handleChange}/>
 
-        <button type='submit' className='btn btn-block'>
+        <button type='submit' className='btn btn-block'
+         disabled={isLoading}>
             submit
         </button>
         <p>
