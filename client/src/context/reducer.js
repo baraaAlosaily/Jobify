@@ -2,8 +2,11 @@ import { CLEAR_ALERT,
      DISPLAY_ALERT,
     SETUP_USER_BEGIN,
     SETUP_USER_SUCCESS,
-    SETUP_USER_ERROR
+    SETUP_USER_ERROR,
+    TOGGLE_SIDE_BAR,
+    LOG_OUT_USER
     } from "./action"
+import { initialState } from "./appContext"
 
 const reducer=(state,action)=>{
     if(action.type===DISPLAY_ALERT){
@@ -48,6 +51,21 @@ const reducer=(state,action)=>{
             showAlert:true,
             alertType:'danger',
             alertText: action.payload.msg
+        } 
+    }
+    if(action.type===TOGGLE_SIDE_BAR){
+        return {
+            ...state,
+            showSideBar:!state.showSideBar
+        } 
+    }
+    if(action.type===LOG_OUT_USER){
+        return {
+            ...initialState,
+            user:null,
+            token:null,
+            userLocation:null,
+            jobLocation:null
         } 
     }
 
