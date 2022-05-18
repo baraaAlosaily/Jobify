@@ -6,7 +6,7 @@ import { useAppContext } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import JobInfo from './JobInfo'
 
-const Job = ({_id,position,company,createdAt,jobLocaiton,jobType,status}) => {
+const Job = ({_id,position,company,createdAt,jobLocation,jobType,status}) => {
     const {setEditJob,deleteJob} =useAppContext();
     let date=moment(createdAt);
     date=date.format('MMM Do,YYYY')
@@ -21,7 +21,7 @@ const Job = ({_id,position,company,createdAt,jobLocaiton,jobType,status}) => {
      </header>
      <div className='content'>
        <div className='content-center'>
-         <JobInfo icon={<FaLocationArrow/>} text={jobLocaiton} />
+         <JobInfo icon={<FaLocationArrow/>} text={jobLocation} />
          <JobInfo icon={<FaCalendarAlt/>} text={date} />
          <JobInfo icon={<FaBriefcase/>} text={jobType} />
          <div className={`status ${status}`}>{status}</div>

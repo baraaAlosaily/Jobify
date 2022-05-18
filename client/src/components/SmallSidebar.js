@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Wrapper from '../assets/wrappers/SmallSidebar'
 import {FaTimes} from 'react-icons/fa'
 import Logo from './Logo'
 import { useAppContext } from '../context/appContext'
-import { Link } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
-import links from '../utils/links'
 import NavLinks from './NavLinks'
 
 const SmallSidebar = () => {
