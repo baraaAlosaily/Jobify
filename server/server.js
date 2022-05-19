@@ -2,6 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
 import morgan from "morgan";
+import helmet from "helmet";
+import xss from 'xss-clean';
+import mongoSanitize from "express-mongo-sanitize";
+import cors from 'cors';
+
+
 const app=express();
 
 
@@ -20,8 +26,11 @@ import authenticateUser from './middleware/auth.js'
 if(process.env.NODE_ENV!=="production"){
     app.use(morgan('dev'))
 }
-
+app.use(cors());
 app.use(express.json());
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 
 app.get("/",(req,res)=>{

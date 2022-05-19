@@ -84,7 +84,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const authFetch= axios.create({
-    baseURL:'/api/v1'
+    baseURL:`${process.env.REACT_APP_BASE_URL}/api/v1`
   })
 
   //request 
@@ -123,7 +123,7 @@ const AppProvider = ({ children }) => {
   const setupUser = async ({currentUser,endPoint,alertText}) => {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const { data } = await axios.post(`/api/v1/auth/${endPoint}`, currentUser);
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/auth/${endPoint}`, currentUser);
       const { user, token, location } = data;
       dispatch({
         type: SETUP_USER_SUCCESS,
